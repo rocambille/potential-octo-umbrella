@@ -24,9 +24,11 @@ document.querySelectorAll(".modal").forEach((modal) => {
       };
 
       window.addEventListener("keydown", keyDownListener);
+      document.body.style.overflow = "hidden";
     } else {
       window.removeEventListener("keydown", keyDownListener);
       keyDownListener = null;
+      document.body.style.overflow = "initial";
     }
   });
 });
