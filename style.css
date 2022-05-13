@@ -528,6 +528,11 @@ li h4 {
 
 /* Fin CSS Théo */
 
+.modal {
+  --border: 2rem;
+  --exit-size: 4rem;
+}
+
 .modal-trigger::-webkit-details-marker {
   display: none;
 }
@@ -547,45 +552,52 @@ li h4 {
   background-size: cover;
 }
 
-.modal[open] .modal-trigger:before {
+.modal[open]::before {
   content: "";
   position: fixed;
-  left: 0;
   top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
   z-index: 1;
-  width: 100vw;
-  height: 100vh;
-  background-color: black;
-  opacity: 0.75;
+  background-image: url("./images/lorem-ipsum.png");
+  filter: blur(5px);
+  -webkit-filter: blur(5px);
+}
+
+.modal[open] .modal-trigger:before {
+  content: "🗙";
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  letter-spacing: 0;
+  position: fixed;
+  bottom: calc(var(--border) + 1rem);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 2;
+  width: var(--exit-size);
+  height: var(--exit-size);
+  background-color: white;
+  border-radius: 50%;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
 .modal-window {
-  --margin: 2rem;
   position: fixed;
-  top: var(--margin);
+  top: 0;
   left: 50%;
-  z-index: 1;
   transform: translateX(-50%);
-  padding: 2rem;
+  z-index: 1;
+  padding: 2rem 2rem calc(1rem + var(--exit-size)) 2rem;
   background-color: white;
+  border: var(--border) solid black;
   border-radius: 1rem;
-  width: 800px;
-  max-width: calc(100vw - var(--margin));
-  min-height: 280px;
-  max-height: calc(100vh - 2 * var(--margin));
+  width: 100vw;
+  max-width: 80ch;
+  height: 100vh;
+  max-height: 100vh;
   overflow-y: auto;
   overflow-x: hidden;
-}
-
-.modal:after {
-  content: "🗙";
-  color: white;
-  pointer-events: none;
-  position: fixed;
-  right: 0;
-  top: 0.5rem;
-  z-index: 1;
-  width: 2rem;
-  text-align: center;
-  border-radius: 0 50% 50% 0;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
 }
